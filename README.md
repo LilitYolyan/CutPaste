@@ -1,2 +1,2 @@
 # cutpaste
-Unofficial implementation of Google "CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"
+Unofficial implementation of Google's "CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"
