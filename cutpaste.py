@@ -2,18 +2,19 @@ import random
 import numpy as np
 from torchvision import transforms
 
-class CutPaste:
+class CutPaste(object):
 
-    def __init__(self, transform = True):
+    def __init__(self, transform = True, type = 'binary'):
 
         '''
         This class creates to different augmentation CutPaste and CutPaste-Scar. Moreover, it returns augmented images
         for binary and 3 way classification
 
         :arg
-        transform[binary] - if True use Color Jitter augmentations for patches
+        :transform[binary]: - if True use Color Jitter augmentations for patches
+        :type[str]: options ['binary' or '3way'] - classification type
         '''
-
+        self.type = type
         if transform:
             self.transform = transforms.ColorJitter(brightness = 0.1,
                                                       contrast = 0.1,
@@ -89,19 +90,18 @@ class CutPaste:
         cutpaste_scar = self.crop_and_paste_patch(image, patch_w, patch_h, self.transform, rotation = rotation)
         return cutpaste_scar
 
-    def __call__(self, image, type = 'binary'):
+    def __call__(self, image):
         '''
 
         :image: [PIL] - original image
-        :type: ['binary' or '3way'] - classification type
         :return: if type == 'binary' returns original image and randomly chosen transformation, else it returns
                 original image, an image after CutPaste transformation and an image after CutPaste-Scar transformation
         '''
-        if type == 'binary':
+        if self.type == 'binary':
             aug = random.choice([self.cutpaste, self.cutpaste_scar])
             return image, aug(image)
 
-        elif type == '3way':
+        elif self.type == '3way':
             cutpaste = self.cutpaste(image)
             scar = self.cutpaste_scar(image)
             return image, cutpaste, scar
