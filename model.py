@@ -1,5 +1,4 @@
 import torch
-import torchvision
 from torchvision.models import resnet18
 import torch.nn as nn
 
@@ -47,8 +46,3 @@ class Encoder(nn.Module):
                 param.requires_grad = False
             else:
                 param.requires_grad = True
-
-print(Projection())
-enc = Encoder()
-enc.freeze('fc')
-print(enc)
