@@ -46,8 +46,3 @@ class Encoder(nn.Module):
                 param.requires_grad = False
             else:
                 param.requires_grad = True
-<<<<<<< HEAD
-
-
-=======
->>>>>>> d0f0be87db9b419a9e5b435ac60a6893343a6140

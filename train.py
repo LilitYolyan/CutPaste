@@ -7,15 +7,33 @@ from model import Projection, Encoder
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 from args import get_args
-
+from dataset import MVTecAD
 
 class CutPaste(pl.Lighparse_argstningModule):
     def __init__(self, hparams):
         super(CutPaste, self).__init__()
         self.save_hyperparameters()
         self.encoder = Encoder()
-        self.projection_head = Projection()
+        self.projection_head = Projection(num_classes = self.hparams.num_classes)
         self.criterion = torch.nn.CrossEntropyLoss()
+
+    def train_dataloader(self):
+        dataset = MVTecAD(train_images = self.hparams.dataset_path, mode = 'train')
+        loader = torch.utils.data.DataLoader(
+            dataset=dataset,
+            batch_size=self.hparams.batch_size,
+            shuffle=True
+        )
+        return loader
+    
+    def test_dataloader(self):
+        dataset = MVTecAD(train_images = self.hparams.dataset_path, mode = 'test')
+        loader = torch.utils.data.DataLoader(
+            dataset=dataset,
+            batch_size=self.hparams.batch_size,
+            shuffle=True
+        )
+        return loader
 
 
     def forward(self, x):
@@ -69,5 +87,4 @@ if __name__ == "__main__":
     args = get_args()
     model = CutPaste()
     trainer = pl.Trainer.from_argparse_args(args, gpus=args.num_gpus, callbacks=[checkpoint_callback], max_epochs=args.num_epochs)
-    trainer.fit(model, train_loader)
-    trainer.test()
+    trainer.fit(model)
