@@ -28,9 +28,9 @@ class Projection(nn.Module):
 
 
 class Encoder(nn.Module):
-    def __init__(self):
+    def __init__(self, pretrained = True):
         super().__init__()
-        self.encoder = resnet18(pretrained=True)
+        self.encoder = resnet18(pretrained = pretrained)
         self.encoder.fc = nn.Identity()
 
     def forward(self, x):
@@ -48,7 +48,4 @@ class Encoder(nn.Module):
             else:
                 param.requires_grad = True
 
-print(Projection())
-enc = Encoder()
-enc.freeze('fc')
-print(enc)
+
