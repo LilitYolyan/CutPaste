@@ -3,7 +3,7 @@ from torch.nn import functional as F
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import pytorch_lightning as pl
-from model import Projection, Encoder
+from model import CutPasteNet
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
@@ -16,8 +16,7 @@ class CutPaste(pl.LightningModule):
     def __init__(self, hparams):
         super(CutPaste, self).__init__()
         self.save_hyperparameters(hparams)
-        self.encoder = Encoder()
-        self.projection_head = Projection()
+        self.model = CutPasteNet()
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def train_dataloader(self):
@@ -40,15 +39,14 @@ class CutPaste(pl.LightningModule):
 
 
     def forward(self, x):
-        features = self.encoder(x)
-        logits, embeds = self.projection_head(features)
+        features, logits, embeds = self.model(x)
         return features, logits, embeds
 
     def configure_optimizers(self):
         optimizer = optim.SGD(self.parameters(), lr=self.hparams.learninig_rate, 
                             momentum=self.hparams.momentum, weight_decay=self.hparams.weight_decay)
-        scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
-        return optimizer, scheduler
+        #scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
+        return optimizer
     
     def on_train_start(self):  
         print('Starting training') 
@@ -62,7 +60,10 @@ class CutPaste(pl.LightningModule):
         y = y.repeat_interleave(len(batch[0])).cuda()
         features, logits, embeds = self(x)
         loss = self.criterion(logits, y)
+        predicted = torch.argmax(logits,axis=1)
+        accuracy = torch.true_divide(torch.sum(predicted==y), predicted.size(0))
         self.log("train_loss", loss)
+        self.log("train_acc", accuracy)
         return loss
     
 
