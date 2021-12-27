@@ -10,6 +10,7 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from args import get_args
 from dataset import MVTecAD
 from torch import optim
+from pathlib import Path
 
 class CutPaste(pl.LightningModule):
     def __init__(self, hparams):
@@ -20,7 +21,7 @@ class CutPaste(pl.LightningModule):
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def train_dataloader(self):
-        dataset = MVTecAD(train_images = self.hparams.dataset_path,  image_size = self.hparams.input_size, mode = 'train')
+        dataset = MVTecAD(train_images = self.hparams.dataset_path, image_size = self.hparams.input_size, mode = 'train')
         loader = torch.utils.data.DataLoader(
             dataset=dataset,
             batch_size=self.hparams.batch_size,
@@ -47,7 +48,7 @@ class CutPaste(pl.LightningModule):
         optimizer = optim.SGD(self.parameters(), lr=self.hparams.learninig_rate, 
                             momentum=self.hparams.momentum, weight_decay=self.hparams.weight_decay)
         scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
-        return optimizer
+        return optimizer, scheduler
     
     def on_train_start(self):  
         print('Starting training') 
@@ -80,24 +81,19 @@ class CutPaste(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    from pathlib import Path
     args = get_args()
-     
     logger = TensorBoardLogger(args.log_dir, name=args.log_dir_name)
-
     checkpoint_dir = (
     Path(logger.save_dir)
     / logger.name
     / f"version_{logger.version}"
     / "checkpoints"
     )
-     
     checkpoint_callback = ModelCheckpoint(
     monitor = args.monitor_checkpoint,
     dirpath=str(checkpoint_dir),
     filename=args.checkpoint_filename,
     mode = args.monitor_checkpoint_mode)
-
     model = CutPaste(hparams = args)
     trainer = pl.Trainer.from_argparse_args(args, logger=logger, gpus=args.num_gpus, callbacks=[checkpoint_callback], max_epochs=args.num_epochs)
     trainer.fit(model)
