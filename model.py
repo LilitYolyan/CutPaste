@@ -3,20 +3,20 @@ from torchvision.models import resnet18
 import torch.nn as nn
 
 class Projection(nn.Module):
-    def __init__(self, dims = [512,512,512,512,512,512,512,512,128], num_classes = 3):
+    def __init__(self, dims = [512,512,512,512,512,512,512,512,128], num_class = 3):
         super().__init__()
         proj_layers = []
-        for d in dims:
+        for d in dims[:-1]:
             proj_layers.append(nn.Linear(d,d, bias=False)),
             proj_layers.append((nn.BatchNorm1d(d))),
             proj_layers.append(nn.ReLU(inplace=True))
         
-        embeds = nn.Linear(dims[-2], dims[-1], bias=num_classes > 0)
+        embeds = nn.Linear(dims[-2], dims[-1], bias=num_class > 0)
         proj_layers.append(embeds)
         self.head = nn.Sequential(
             *proj_layers
         )
-        self.out = nn.Linear(dims[-1], num_classes)
+        self.out = nn.Linear(dims[-1], num_class)
             
     def forward(self, x):
         embed = self.head(x)
