@@ -15,9 +15,6 @@ import argparse
 from glob import glob
 
 #TODO plot tsne
-#TODO add detection with threshold
-#TODO add load from saved
-#TODO doctrings
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -30,6 +27,13 @@ def get_args():
 class AnomalyDetection:
 
     def __init__(self,  weights, device = 'cuda'):
+        '''
+        Anomaly Detection
+
+        args:
+        weights[str] _ path to weights
+        device[str] _ device on wich model should be run
+        '''
         self.cutpaste_model = self.model(device, weights)
         self.device = device
 
@@ -95,12 +99,20 @@ class AnomalyDetection:
         return -scores/norm
 
     def mvtec_anomaly_detection(self, path_to_defect):
+        '''
+        args:
+        path_to_defect[str] _ path to one defect category in MVTec
+
+        returns:
+        AUC score and ROC curve saved
+        '''
+
         train_images = os.path.join(path_to_defect, 'train')
         test_images = os.path.join(path_to_defect, 'test')
         defect_name = os.path.split(path_to_defect)[-1]
         train_embeds , _ = self.create_embeds(train_images)
-        test_embeds, test_labels = self.create_embeds(test_images)
         GDE_model = self.GDE_fit(train_embeds)
+        test_embeds, test_labels = self.create_embeds(test_images)
         scores = self.GDE_scores(test_embeds, GDE_model)
         auc = self.roc_auc(test_labels, scores, defect_name)
         return auc
