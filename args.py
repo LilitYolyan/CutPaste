@@ -4,7 +4,7 @@ def get_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--pretrained',default='True', help='bool value to indicate weather to use pretrained weight for encoder')
-    parser.add_argument('--dataset_path', default=r'/media/annamanasyan/Data/Manufacturing/MVTec/hazelnut/train') 
+    parser.add_argument('--dataset_path', help = 'path to dataset')
     parser.add_argument('--dims', default= [512,512,512,512,512,512,512,512,128], help = 'list indicating number of hidden units for each layer of projection head')
     parser.add_argument('--num_class', default = 3)
     parser.add_argument('--learninig_rate', default=0.03)

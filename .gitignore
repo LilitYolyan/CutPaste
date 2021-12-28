@@ -1,2 +1,5 @@
 .idea*
 __*
+roc_results/
+tb_logs/
+

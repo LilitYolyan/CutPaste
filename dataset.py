@@ -35,6 +35,10 @@ class CutPaste_Dataet(Dataset):
         elif self.test_images and self.mode == 'test':
             self.images = datasets.ImageFolder(self.test_images, transform=self.transform)
 
+        # to fit anomaly detection: needs improvements
+        elif self.train_images and self.mode == 'test':
+            self.images = datasets.ImageFolder(self.train_images, transform=self.transform)
+
         else:
             raise ValueError('Please specify dataset path and mode')
 
@@ -47,14 +51,14 @@ class CutPaste_Dataet(Dataset):
         """
         if self.mode == 'train':
             image_path = self.images[item]
-            image = Image.open(image_path)
+            image = Image.open(image_path).convert('RGB')
             out = self.cutpaste_transform(image)
             transformed = [self.transform(i) for i in out]
             return transformed
 
         else:
             image, label = self.images.samples[item]
-            image = Image.open(image)
+            image = Image.open(image).convert('RGB')
             image = self.transform(image)
             return image, label
 
@@ -71,18 +75,3 @@ class MVTecAD(CutPaste_Dataet):
         else:
             self.images = glob(self.train_images + '/*/*')
 
-if __name__ == "__main__":
-    import torch
-    data = MVTecAD('/media/annamanasyan/Data/Manufacturing/MVTec/hazelnut/train')
-    
-    loader = torch.utils.data.DataLoader(
-        dataset=data,
-        batch_size=4,
-        shuffle=True
-    )
-
-    for i in loader:
-        print(i[0].shape)
-        xc = torch.cat(i, axis=0)
-        print(xc)
-        break
