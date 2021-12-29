@@ -1,5 +1,7 @@
 # CutPaste
 ![CutPaste: image from paper](image.png)
+CutPaste: image from paper
+
 Unofficial implementation of Google's ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"](https://arxiv.org/abs/2104.04015)
 
 ### Installation
