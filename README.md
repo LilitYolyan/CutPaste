@@ -1,4 +1,5 @@
 # CutPaste
+![CutPaste: image from paper](https://myoctocat.com/assets/images/base-octocat.svg)
 Unofficial implementation of Google's ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"](https://arxiv.org/abs/2104.04015)
 
 ### Installation
