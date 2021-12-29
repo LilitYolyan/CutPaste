@@ -2,7 +2,7 @@
 ![CutPaste: image from paper](image.png)
 CutPaste: image from paper
 
-Unofficial implementation of Google's ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"](https://arxiv.org/abs/2104.04015)
+Unofficial implementation of Google's ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"](https://arxiv.org/abs/2104.04015) in PyTorch
 
 ### Installation
 To rerun experiments or try on your own dataset, first clone the repository and install `requirements.txt`.
