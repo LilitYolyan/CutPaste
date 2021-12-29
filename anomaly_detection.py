@@ -138,3 +138,5 @@ if __name__ == '__main__':
         os.makedirs(save_path, exist_ok=True)
         res = anomaly.mvtec_anomaly_detection(defect, save_path)
         print(f'Defect {defect_name}, AUC = {res}, ROC curve is saved')
+        with open(os.path.join(args.save_exp, 'AUC_resuts.txt'), 'a') as f:
+            f.write(f'{defect_name} {res} \n')
