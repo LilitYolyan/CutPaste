@@ -13,6 +13,7 @@ import os
 import tqdm
 import argparse
 from glob import glob
+import pathlib
 
 #TODO plot tsne
 
@@ -21,7 +22,11 @@ def get_args():
     parser.add_argument('--checkpoint',
                         help='checkpoint to trained self-supervised model')
     parser.add_argument('--data', help='path to MVTec dataset')
+<<<<<<< HEAD
     parser.add_argument('--batch_size', default=32 help='path to MVTec dataset')
+=======
+    parser.add_argument('--save_exp', default='./anomaly_exp', help = 'Save fitted models and roc curves')
+>>>>>>> ffc20766c7f44f03e47dfe1a3754889cca41fe9a
     args = parser.parse_args()
     return args
 
@@ -99,7 +104,7 @@ class AnomalyDetection:
         norm = np.linalg.norm(-scores)
         return -scores/norm
 
-    def mvtec_anomaly_detection(self, path_to_defect):
+    def mvtec_anomaly_detection(self, path_to_defect, save_path=None):
         '''
         args:
         path_to_defect[str] _ path to one defect category in MVTec
@@ -112,17 +117,24 @@ class AnomalyDetection:
         test_images = os.path.join(path_to_defect, 'test')
         defect_name = os.path.split(path_to_defect)[-1]
         train_embeds , _ = self.create_embeds(train_images)
-        GDE_model = self.GDE_fit(train_embeds)
+        GDE_model = self.GDE_fit(train_embeds, save_path)
         test_embeds, test_labels = self.create_embeds(test_images)
         scores = self.GDE_scores(test_embeds, GDE_model)
-        auc = self.roc_auc(test_labels, scores, defect_name)
+        auc = self.roc_auc(test_labels, scores, defect_name, save_path)
         return auc
 
 
 if __name__ == '__main__':
     args = get_args()
+<<<<<<< HEAD
     anomaly = AnomalyDetection(args.checkpoint, args.batch_size)
+=======
+    anomaly = AnomalyDetection(args.checkpoint)
+
+>>>>>>> ffc20766c7f44f03e47dfe1a3754889cca41fe9a
     for defect in glob(os.path.join(args.data , '*')):
         defect_name = os.path.split(defect)[-1]
-        res = anomaly.mvtec_anomaly_detection(defect)
+        save_path = os.path.join(args.save_exp, defect_name)
+        os.makedirs(save_path, exist_ok=True)
+        res = anomaly.mvtec_anomaly_detection(defect, save_path)
         print(f'Defect {defect_name}, AUC = {res}, ROC curve is saved')
