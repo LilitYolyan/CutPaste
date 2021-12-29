@@ -22,11 +22,8 @@ def get_args():
     parser.add_argument('--checkpoint',
                         help='checkpoint to trained self-supervised model')
     parser.add_argument('--data', help='path to MVTec dataset')
-<<<<<<< HEAD
     parser.add_argument('--batch_size', default=32 help='path to MVTec dataset')
-=======
     parser.add_argument('--save_exp', default='./anomaly_exp', help = 'Save fitted models and roc curves')
->>>>>>> ffc20766c7f44f03e47dfe1a3754889cca41fe9a
     args = parser.parse_args()
     return args
 
@@ -126,12 +123,8 @@ class AnomalyDetection:
 
 if __name__ == '__main__':
     args = get_args()
-<<<<<<< HEAD
     anomaly = AnomalyDetection(args.checkpoint, args.batch_size)
-=======
     anomaly = AnomalyDetection(args.checkpoint)
-
->>>>>>> ffc20766c7f44f03e47dfe1a3754889cca41fe9a
     for defect in glob(os.path.join(args.data , '*')):
         defect_name = os.path.split(defect)[-1]
         save_path = os.path.join(args.save_exp, defect_name)
