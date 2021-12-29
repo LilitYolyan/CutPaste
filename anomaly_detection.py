@@ -22,12 +22,12 @@ def get_args():
     parser.add_argument('--checkpoint',
                         help='checkpoint to trained self-supervised model')
     parser.add_argument('--data', help='path to MVTec dataset')
+    parser.add_argument('--batch_size', default=32 help='path to MVTec dataset')
     parser.add_argument('--save_exp', default='./anomaly_exp', help = 'Save fitted models and roc curves')
     args = parser.parse_args()
     return args
 
 class AnomalyDetection:
-
     def __init__(self,  weights, device = 'cuda'):
         '''
         Anomaly Detection
@@ -38,6 +38,7 @@ class AnomalyDetection:
         '''
         self.cutpaste_model = self.model(device, weights)
         self.device = device
+        self.batch_size = batch_size
 
     @staticmethod
     def model(device, weights):
@@ -75,7 +76,7 @@ class AnomalyDetection:
         embeddings = []
         labels = []
         dataset = MVTecAD(path_to_images, mode = 'test')
-        dataloader = DataLoader(dataset, batch_size = 32)
+        dataloader = DataLoader(dataset, batch_size = self.batch_size)
         with torch.no_grad():
             for imgs, lbls in dataloader:
                 features, logits, embeds = self.cutpaste_model(imgs.to(self.device))
@@ -122,8 +123,8 @@ class AnomalyDetection:
 
 if __name__ == '__main__':
     args = get_args()
+    anomaly = AnomalyDetection(args.checkpoint, args.batch_size)
     anomaly = AnomalyDetection(args.checkpoint)
-
     for defect in glob(os.path.join(args.data , '*')):
         defect_name = os.path.split(defect)[-1]
         save_path = os.path.join(args.save_exp, defect_name)

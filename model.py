@@ -25,16 +25,16 @@ class CutPasteNet(nn.Module):
         logits = self.out(embeds)
         return features, logits, embeds
 
-    # def freeze(self, layer_name):
-    #     #freeze encoder until layer_name
-    #     check = False
-    #     for name, param in self.encoder.named_parameters():
-    #         if name == layer_name:
-    #             check = True 
-    #         if not check and param.requires_grad != False:
-    #             param.requires_grad = False
-    #         else:
-    #             param.requires_grad = True
+    def freeze(self, layer_name):
+        #freeze encoder until layer_name
+        check = False
+        for name, param in self.encoder.named_parameters():
+            if name == layer_name:
+                check = True 
+            if not check and param.requires_grad != False:
+                param.requires_grad = False
+            else:
+                param.requires_grad = True
 
   
 

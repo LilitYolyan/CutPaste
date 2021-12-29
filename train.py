@@ -45,8 +45,8 @@ class CutPaste(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = optim.SGD(self.parameters(), lr=self.hparams.learninig_rate, 
                             momentum=self.hparams.momentum, weight_decay=self.hparams.weight_decay)
-        #scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
-        return optimizer
+        scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
+        return [optimizer], [scheduler]
     
     def on_train_start(self):  
         print('Starting training') 
