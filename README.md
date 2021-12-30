@@ -105,41 +105,5 @@ To train self-supervised model we used same hyperparameters as was used in paper
   <img src="/experiments/roc_binary/transistor.jpg" width="260" />
 </p>
 
-
-## Self-supervised binary training results
-
-**Training accuracy and loss for bottle**
-<p float="left">
-  <img src="experiments/self-supervised_binary/train_acc_bottle.png" width="300" />
-  <img src="experiments/self-supervised_binary/train_loss_bottle.png" width="300" /> 
-</p>
-
-
-**Training accuracy and loss for pill**
-<p float="left">
-  <img src="experiments/self-supervised_binary/train_acc_pill.png" width="300" />
-  <img src="experiments/self-supervised_binary/train_loss_pill.png" width="300" /> 
-</p>
-
-
-**Training accuracy and loss for cable**
-<p float="left">
-  <img src="experiments/self-supervised_binary/train_acc_cable.png" width="300" />
-  <img src="experiments/self-supervised_binary/train_loss_cable.png" width="300" /> 
-</p>
-
-
-**Training accuracy and loss for capsule**
-<p float="left">
-  <img src="experiments/self-supervised_binary/train_acc_capsule.png" width="300" />
-  <img src="experiments/self-supervised_binary/train_loss_capsule.png" width="300" /> 
-</p>
-
-
-**Training accuracy and loss for tile**
-<p float="left">
-  <img src="experiments/self-supervised_binary/train_acc_tile.png" width="300" />
-  <img src="experiments/self-supervised_binary/train_loss_tile.png" width="300" /> 
-</p>
- 
+For more experiment results fo to ["experiments.md"](/experiments.md)
 
