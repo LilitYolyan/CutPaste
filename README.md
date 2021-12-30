@@ -109,10 +109,8 @@ To train self-supervised model we used same hyperparameters as was used in paper
 ## Self-supervised binary training results
 
 <p float="left">
-  <img src="/train_acc_bottle.svg" width="300" />
-  <img src="train_loss_bottle.svg" width="300" /> 
-</p>
-  <p>
+  <img src="/train_acc_bottle.png" width="300" />
+  <img src="train_loss_bottle.png" width="300" /> 
     <em>Training accuracy and loss for bottle</em>
 </p>
  
