@@ -10,7 +10,7 @@ To train self-supervised model we used same hyperparameters as was used in paper
 
 ## AUC comparison of our code and paper results
 
-| Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  | | CutPaste 3 way (ours) | CutPaste 3 way (paper's)  | 
+| Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  | CutPaste 3 way (ours) | CutPaste 3 way (paper's)  | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | 
 | tile  | 84.1 | 95.9 |  | 93.4 |
 | wood  | 89.5 | 94.9 |  | 98.6 |
