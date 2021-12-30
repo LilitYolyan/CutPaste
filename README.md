@@ -104,3 +104,12 @@ To train self-supervised model we used same hyperparameters as was used in paper
   <img src="experiments/roc_binary/wood.jpg" width="260" /> 
   <img src="/experiments/roc_binary/transistor.jpg" width="260" />
 </p>
+
+
+## Self-supervised binary training results
+
+<p float="left">
+  <img src="/train_acc_bottle.svg" width="300" />
+  <img src="train_loss_bottle.svg" width="300" /> 
+  <em>Training accuracy and loss for bottle</em>
+</p>
