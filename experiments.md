@@ -29,7 +29,7 @@ To train self-supervised model we used same hyperparameters as was used in paper
 | transistor | 84.4 | 96.4 | 
 
 
-## ROC curves using embeddings from binary classification for self-supervised learning
+### ROC curves using embeddings from binary classification for self-supervised learning
 <p float="left">
   <img src="/experiments/roc_binary/bottle.jpg" width="260" />
   <img src="experiments/roc_binary/cable.jpg" width="260" /> 
@@ -59,7 +59,7 @@ To train self-supervised model we used same hyperparameters as was used in paper
 </p>
 
 
-## Self-supervised binary training results
+### Self-supervised binary training results
 
 **Training accuracy and loss for bottle**
 <p float="left">
@@ -96,4 +96,31 @@ To train self-supervised model we used same hyperparameters as was used in paper
 </p>
  
 
-## Results of Self-supervised with 3-way classification will be added soon 
+### Self-supervised 3-way training results
+**Training accuracy and loss for pill**
+<p float="left">
+  <img src="experiments/self_supervised_3way/train_acc_pill.svg" width="300" />
+  <img src="experiments/self_supervised_3way/train_loss_pill.svg" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for screw**
+<p float="left">
+  <img src="experiments/self_supervised_3way/train_acc_screw.svg" width="300" />
+  <img src="experiments/self_supervised_3way/train_loss_screw.svg" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for tile**
+<p float="left">
+  <img src="experiments/self_supervised_3way/train_acc_tile.svg" width="300" />
+  <img src="experiments/self_supervised_3way/train_loss_tile.svg" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for zipper**
+<p float="left">
+  <img src="experiments/self_supervised_3way/train_acc_zipper.svg" width="300" />
+  <img src="experiments/self_supervised_3way/train_loss_zipper.svg" width="300" /> 
+</p>
+
