@@ -49,7 +49,7 @@ Any contribution is appreciated!
 To train self-supervised model we used same hyperparameters as was used in paper: 
 | Hyperparameter  | Value |
 | ------------- | ------------- |
-| Number od epochs | 265 |
+| Number of epochs | 265 |
 | Batch size | 32 |
 | Learning rate | 0.03 |
 | Input size | 256 |
