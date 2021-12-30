@@ -1,12 +1,13 @@
 import torch
-from torchvision.models import resnet18
+from torchvision import models
 import torch.nn as nn
 
 class CutPasteNet(nn.Module):
-    def __init__(self, pretrained = True, dims = [512,512,512,512,512,512,512,512,128], num_class = 3):
+    def __init__(self, encoder = 'resnet18', pretrained = True, dims = [512,512,512,512,512,512,512,512,128], num_class = 3):
         super().__init__()
-        self.encoder = resnet18(pretrained = pretrained)
-        self.encoder.fc = nn.Identity()
+        self.encoder = getattr(models, encoder)(pretrained = pretrained)
+        last_layer= list(self.encoder.named_modules())[-1][0].split('.')[0]
+        setattr(self.encoder, last_layer, nn.Identity())
         proj_layers = []
         for d in dims[:-1]:
             proj_layers.append(nn.Linear(d,d, bias=False)),
@@ -37,6 +38,3 @@ class CutPasteNet(nn.Module):
                 param.requires_grad = True
 
   
-
-    
-
