@@ -19,16 +19,16 @@ import pathlib
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint',
-                        help='checkpoint to trained self-supervised model')
+    parser.add_argument('--path_to_checkpoints',
+                        help='path to the folder where results from self-supervised are saved')
     parser.add_argument('--data', help='path to MVTec dataset')
-    parser.add_argument('--batch_size', default=32 help='path to MVTec dataset')
+    parser.add_argument('--batch_size', default=32)
     parser.add_argument('--save_exp', default='./anomaly_exp', help = 'Save fitted models and roc curves')
     args = parser.parse_args()
     return args
 
 class AnomalyDetection:
-    def __init__(self,  weights, device = 'cuda'):
+    def __init__(self,  weights, batch_size, device = 'cuda'):
         '''
         Anomaly Detection
 
@@ -123,10 +123,11 @@ class AnomalyDetection:
 
 if __name__ == '__main__':
     args = get_args()
-    anomaly = AnomalyDetection(args.checkpoint, args.batch_size)
-    anomaly = AnomalyDetection(args.checkpoint)
+    all_checkpoints = glob(os.path.join(args.path_to_checkpoints ,'*', '*', '*', '*'))
     for defect in glob(os.path.join(args.data , '*')):
         defect_name = os.path.split(defect)[-1]
+        checkpoint = [i for i in all_checkpoints if defect_name in i][0]
+        anomaly = AnomalyDetection(checkpoint, args.batch_size)
         save_path = os.path.join(args.save_exp, defect_name)
         os.makedirs(save_path, exist_ok=True)
         res = anomaly.mvtec_anomaly_detection(defect, save_path)
