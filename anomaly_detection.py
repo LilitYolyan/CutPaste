@@ -22,7 +22,7 @@ def get_args():
     parser.add_argument('--path_to_checkpoints',
                         help='path to the folder where results from self-supervised are saved')
     parser.add_argument('--data', help='path to MVTec dataset')
-    parser.add_argument('--batch_size', default=32, help='path to MVTec dataset')
+    parser.add_argument('--batch_size', default=32)
     parser.add_argument('--save_exp', default='./anomaly_exp', help = 'Save fitted models and roc curves')
     args = parser.parse_args()
     return args

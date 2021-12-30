@@ -1,53 +1,4 @@
-# CutPaste
-![CutPaste: image from paper](image.png)
-CutPaste: image from paper
-
-Unofficial implementation of Google's ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization"](https://arxiv.org/abs/2104.04015) in PyTorch
-
-### Installation
-To rerun experiments or try on your own dataset, first clone the repository and install `requirements.txt`.
-```
-$ git clone https://github.com/LilitYolyan/CutPaste.git
-$ cd CutPaste
-$ pip install -r requirements.txt
-```
-
-### Self-supervised training
-Run `train.py` to train self-supervised model on MVTec dataset
-
-For 3 way classification head 
-```
-$ python train.py --dataset_path path/to/your/dataset/ --num_class 3
-```
-
-For binary classification head 
-```
-$ python train.py --dataset_path path/to/your/dataset/ --num_class 2
-```
-
-To track training process with TensorBoard
-```
-tensorboard --logdir logdirs
-```
-
-
-### Anomaly Detection
-To run anomaly detection for MVTec with Gaussian Density Estimator 
-```
-$ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/mvtec
-
-```
-### TODO
-- [X] Self-supervised model 
-- [X] Gaussian Density Estimator
-- [X] EfficientNet Implementation
-- [ ] Localization
-
-Any contribution is appreciated!
-
 # Experiment Results
-For more experiment results go to ["experiments.md"](/experiments.md)
-
 To train self-supervised model we used same hyperparameters as was used in paper: 
 | Hyperparameter  | Value |
 | ------------- | ------------- |
@@ -108,4 +59,41 @@ To train self-supervised model we used same hyperparameters as was used in paper
 </p>
 
 
+## Self-supervised binary training results
 
+**Training accuracy and loss for bottle**
+<p float="left">
+  <img src="experiments/self-supervised_binary/train_acc_bottle.png" width="300" />
+  <img src="experiments/self-supervised_binary/train_loss_bottle.png" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for pill**
+<p float="left">
+  <img src="experiments/self-supervised_binary/train_acc_pill.png" width="300" />
+  <img src="experiments/self-supervised_binary/train_loss_pill.png" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for cable**
+<p float="left">
+  <img src="experiments/self-supervised_binary/train_acc_cable.png" width="300" />
+  <img src="experiments/self-supervised_binary/train_loss_cable.png" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for capsule**
+<p float="left">
+  <img src="experiments/self-supervised_binary/train_acc_capsule.png" width="300" />
+  <img src="experiments/self-supervised_binary/train_loss_capsule.png" width="300" /> 
+</p>
+
+
+**Training accuracy and loss for tile**
+<p float="left">
+  <img src="experiments/self-supervised_binary/train_acc_tile.png" width="300" />
+  <img src="experiments/self-supervised_binary/train_loss_tile.png" width="300" /> 
+</p>
+ 
+
+## Results of Self-supervised with 3-way classification will be added soon 
