@@ -40,7 +40,7 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 ### TODO
 - [X] Self-supervised model 
 - [X] Gaussian Density Estimator
-- [ ] EfficientNet Implementation
+- [X] EfficientNet Implementation
 - [ ] Localization
 
 Any contribution is appreciated!
