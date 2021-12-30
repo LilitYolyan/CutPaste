@@ -111,5 +111,9 @@ To train self-supervised model we used same hyperparameters as was used in paper
 <p float="left">
   <img src="/train_acc_bottle.svg" width="300" />
   <img src="train_loss_bottle.svg" width="300" /> 
-  <em>Training accuracy and loss for bottle</em>
 </p>
+  <p>
+    <em>Training accuracy and loss for bottle</em>
+</p>
+ 
+
