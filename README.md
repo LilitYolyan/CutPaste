@@ -47,25 +47,29 @@ Any contribution is appreciated!
 
 # Experiment Results
 <p float="left">
-  <img src="/experiments/roc_binary/bottle.jpg" width="200" />
-  <img src="experiments/roc_binary/cable.jpg" width="200" /> 
-  <img src="experiments/roc_binary/capsule.jpg" width="200" />
-  <img src="experiments/roc_binary/zipper.jpg" width="200" />
-  <img src="experiments/roc_binary/wood.jpg" width="200" /> 
+  <img src="/experiments/roc_binary/bottle.jpg" width="300" />
+  <img src="experiments/roc_binary/cable.jpg" width="300" /> 
+  <img src="experiments/roc_binary/capsule.jpg" width="300" />
 </p>
 <p float="left">
-  <img src="/experiments/roc_binary/carpet.jpg" width="200" />
-  <img src="experiments/roc_binary/grid.jpg" width="200" /> 
-  <img src="experiments/roc_binary/hazelnut.jpg" width="200" />
-  <img src="/experiments/roc_binary/transistor.jpg" width="200" />
-  <img src="experiments/roc_binary/toothbrush.jpg" width="200" />
+  <img src="/experiments/roc_binary/carpet.jpg" width="300" />
+  <img src="experiments/roc_binary/grid.jpg" width="300" /> 
+  <img src="experiments/roc_binary/hazelnut.jpg" width="300" />
 </p>
 <p float="left">
-  <img src="/experiments/roc_binary/leather.jpg" width="200" />
-  <img src="experiments/roc_binary/metal_nut.jpg" width="200" /> 
-  <img src="experiments/roc_binary/pill.jpg" width="200" />
-  <img src="/experiments/roc_binary/screw.jpg" width="200" />
-  <img src="experiments/roc_binary/tile.jpg" width="200" /> 
-  
+  <img src="/experiments/roc_binary/leather.jpg" width="300" />
+  <img src="experiments/roc_binary/metal_nut.jpg" width="300" /> 
+  <img src="experiments/roc_binary/pill.jpg" width="300" />
+</p> 
+
+<p float="left">
+  <img src="experiments/roc_binary/toothbrush.jpg" width="300" />
+  <img src="/experiments/roc_binary/screw.jpg" width="300" />
+  <img src="experiments/roc_binary/tile.jpg" width="300" /> 
+</p> 
+
+<p float="left">
+  <img src="experiments/roc_binary/zipper.jpg" width="300" />
+  <img src="experiments/roc_binary/wood.jpg" width="300" /> 
+  <img src="/experiments/roc_binary/transistor.jpg" width="300" />
 </p>
-  
