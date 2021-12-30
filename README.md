@@ -46,6 +46,37 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 Any contribution is appreciated!
 
 # Experiment Results
+To train self-supervised model we used same hyperparameters as was used in paper: 
+| Hyperparameter  | Value |
+| ------------- | ------------- |
+| Number od epochs | 265 |
+| Batch size | 32 |
+| Learning rate | 0.03 |
+| Input size | 256 |
+
+
+## AUC comparison of our code and paper results
+
+| Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  | 
+| ------------- | ------------- | ------------- | 
+| tile  | 84.1 | 95.9 | 
+| wood  | 89.5 | 94.9 | 
+| pill | 88.7 | 93.4 | 
+| leather | 98.7 | 99.7 | 
+| hazelnut | 98.8 | 91.3 | 
+| screw | 89.2 | 54.4 | 
+| cable | 83.3 | 87.7 | 
+| toothbrush | 94.7 | 99.2 | 
+| capsule | 80.2 | 87.9 | 
+| carpet | 57.9 | 67.9 | 
+| zipper | 99.5 | 99.4 | 
+| metal_nut | 91.5 | 96.8 | 
+| bottle | 98.5 | 99.2 | 
+| grid | 99.9 | 99.9 | 
+| transistor | 84.4 | 96.4 | 
+
+
+## ROC curves using embeddings from binary classification for self-supervised learning
 <p float="left">
   <img src="/experiments/roc_binary/bottle.jpg" width="300" />
   <img src="experiments/roc_binary/cable.jpg" width="300" /> 
