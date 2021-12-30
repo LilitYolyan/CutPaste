@@ -46,7 +46,7 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 Any contribution is appreciated!
 
 # Experiment Results
-![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/cable.jpg) ![alt-text-1](experiments/roc_binary/capsule.jpg) 
+![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-2](experiments/roc_binary/cable.jpg) ![alt-text-3](experiments/roc_binary/capsule.jpg) 
 ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) 
 ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) 
 ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) ![alt-text-1](experiments/roc_binary/bottle.jpg) 
