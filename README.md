@@ -42,6 +42,7 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 - [X] Gaussian Density Estimator
 - [X] EfficientNet Implementation
 - [ ] Localization
+- [ ] t-SNE visualization of representations
 
 Any contribution is appreciated!
 
