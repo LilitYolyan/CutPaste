@@ -153,8 +153,6 @@ class AnomalyDetection:
         dataset = MVTecAD(path_to_images, mode = 'train')
         dataloader = DataLoader(dataset, batch_size = self.batch_size)
         with torch.no_grad():
-            for imgs in dataloader:
-                (_, lbls) = torch.meshgrid(torch.arange(0, self.batch_size), torch.arange(0, len(imgs)), indexing="xy")
             for (i_batch, imgs) in enumerate(dataloader):
                 n = self.batch_size if (i_batch <= len(dataset)/self.batch_size - 1) else len(dataset) % self.batch_size
                 (_, lbls) = torch.meshgrid(torch.arange(0, n), torch.arange(0, len(imgs)), indexing="xy")
