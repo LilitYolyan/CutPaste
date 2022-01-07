@@ -89,7 +89,7 @@ class AnomalyDetection:
                 perplexity (float): (5-50), default = 28
                 early_exaggeration (float): change it when not converging, default = 12
                 angle (float): (0.2-0.8), default = 0.3
-                init (str): "random" or "pca", default = "pca"
+                init (str): "random" or "pca", default = "pca
         """        
         tsne = TSNE(
             n_components=2, 
@@ -155,10 +155,13 @@ class AnomalyDetection:
         with torch.no_grad():
             for imgs in dataloader:
                 (_, lbls) = torch.meshgrid(torch.arange(0, self.batch_size), torch.arange(0, len(imgs)), indexing="xy")
+            for (i_batch, imgs) in enumerate(dataloader):
+                n = self.batch_size if (i_batch <= len(dataset)/self.batch_size - 1) else len(dataset) % self.batch_size
+                (_, lbls) = torch.meshgrid(torch.arange(0, n), torch.arange(0, len(imgs)), indexing="xy")
                 imgs = torch.concat(imgs)
                 lbls = lbls.to(dtype=torch.int).flatten()
-                features, logits, embeds = self.cutpaste_model(imgs.to(self.device))
-                del features, logits
+                (_, _, embeds) = self.cutpaste_model(imgs.to(self.device))
+                assert len(embeds) == len(lbls) == len(imgs), IndexError(f"Mismatch: len(embeds), len(lbls), (imgs): {len(embeds), len(lbls), (imgs)}")
                 embeddings.append(embeds.to('cpu'))
                 labels.append(lbls.to('cpu'))
                 torch.cuda.empty_cache()
@@ -218,7 +221,7 @@ if __name__ == '__main__':
             checkpoint: str = checkpoint[0]
         # ic(defect_name, checkpoint)
 
-        anomaly = AnomalyDetection(checkpoint, 2)
+        anomaly = AnomalyDetection(checkpoint, args.batch_size)
         save_path = os.path.join(args.save_exp, defect_name)
         # ic(save_path)
 
