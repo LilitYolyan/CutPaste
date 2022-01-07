@@ -89,7 +89,7 @@ class AnomalyDetection:
                 perplexity (float): (5-50), default = 28
                 early_exaggeration (float): change it when not converging, default = 12
                 angle (float): (0.2-0.8), default = 0.3
-                init (str): "random" or "pca", default = "pca
+                init (str): "random" or "pca", default = "pca"
         """        
         tsne = TSNE(
             n_components=2, 
