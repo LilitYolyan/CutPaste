@@ -159,7 +159,7 @@ class AnomalyDetection:
                 imgs = torch.concat(imgs)
                 lbls = lbls.to(dtype=torch.int).flatten()
                 (_, _, embeds) = self.cutpaste_model(imgs.to(self.device))
-                assert len(embeds) == len(lbls) == len(imgs), IndexError(f"Mismatch: len(embeds), len(lbls), (imgs): {len(embeds), len(lbls), (imgs)}")
+                assert len(embeds) == len(lbls) == len(imgs), IndexError(f"Shape mismatch: len(embeds), len(lbls), (imgs): {len(embeds), len(lbls), len(imgs)}")
                 embeddings.append(embeds.to('cpu'))
                 labels.append(lbls.to('cpu'))
                 torch.cuda.empty_cache()
