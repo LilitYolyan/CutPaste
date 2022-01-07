@@ -44,7 +44,7 @@ class CutPaste(pl.LightningModule):
         return features, logits, embeds
 
     def configure_optimizers(self):
-        optimizer = optim.SGD(self.parameters(), lr=self.hparams.learninig_rate, 
+        optimizer = optim.SGD(self.parameters(), lr=self.hparams.learning_rate, 
                             momentum=self.hparams.momentum, weight_decay=self.hparams.weight_decay)
         scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
         return [optimizer], [scheduler]
