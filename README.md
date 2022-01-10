@@ -41,8 +41,8 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 - [X] Self-supervised model 
 - [X] Gaussian Density Estimator
 - [X] EfficientNet Implementation
+- [X] t-SNE visualization of representations
 - [ ] Localization
-- [ ] t-SNE visualization of representations
 
 Any contribution is appreciated!
 
@@ -109,4 +109,8 @@ TODO: Add results of our 3 way experiment
 </p>
 
 
-
+## t-SNE visualisation of embeddings 
+<p float="left">
+  <img src="experiments/tsne_3way/grid_tsne.jpg" width="260" />
+  <img src="experiments/tsne_3way/wood_tsne.jpg" width="260" /> 
+</p>
