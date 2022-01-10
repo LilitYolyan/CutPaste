@@ -111,6 +111,6 @@ TODO: Add results of our 3 way experiment
 
 ## t-SNE visualisation of embeddings 
 <p float="left">
-  <img src="experiments/tsne_3way/grid_tsne.jpg" width="500" />
-  <img src="experiments/tsne_3way/wood_tsne.jpg" width="500" /> 
+  <img src="experiments/tsne_3way/grid_tsne.jpg" width="450" />
+  <img src="experiments/tsne_3way/wood_tsne.jpg" width="450" /> 
 </p>
