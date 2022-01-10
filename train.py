@@ -16,7 +16,7 @@ class CutPaste(pl.LightningModule):
     def __init__(self, hparams):
         super(CutPaste, self).__init__()
         self.save_hyperparameters(hparams)
-        self.model = CutPasteNet()
+        self.model = CutPasteNet(encoder = hparams.encoder, pretrained = hparams.pretrained, dims = hparams.dims, num_class = hparams.num_class)
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def train_dataloader(self):

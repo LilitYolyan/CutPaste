@@ -24,7 +24,11 @@ For binary classification head
 ```
 $ python train.py --dataset_path path/to/your/dataset/ --num_class 2
 ```
-
+For feature extractor any torchvision model can be used.
+For example to use EfficientNet(B4) Do
+```
+$ python train.py --dataset_path path/to/your/dataset/ --encoder efficientnet_b4
+```
 To track training process with TensorBoard
 ```
 tensorboard --logdir logdirs
