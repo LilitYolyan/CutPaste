@@ -9,7 +9,6 @@ To train self-supervised model we used same hyperparameters as was used in paper
 
 
 ## AUC comparison of our code and paper results
-TODO: add results of our 3 way experiment
 
 | Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  | CutPaste 3 way (ours) | CutPaste 3 way (paper's)  | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | 
