@@ -7,12 +7,8 @@ def get_args():
     parser.add_argument('--dataset_path', help = 'path to trainset with category name, eg: "../data/MVTecAD/wood/train')
     parser.add_argument('--dims', default= [512,512,512,512,512,512,512,512,128], help = 'list indicating number of hidden units for each layer of projection head')
     parser.add_argument('--num_class', default = 3)
-<<<<<<< HEAD
     parser.add_argument('--encoder', default = 'resnet18')
-    parser.add_argument('--learninig_rate', default=0.03)
-=======
     parser.add_argument('--learning_rate', default=0.03)
->>>>>>> eeb132fc0a46161e1a9d3fc7d42c4182c4d4dba0
     parser.add_argument('--momentum', default=0.9)
     parser.add_argument('--weight_decay', default=0.00003)
     parser.add_argument('--num_epochs', default=300)
