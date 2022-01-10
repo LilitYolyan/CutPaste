@@ -32,7 +32,7 @@ TODO: add results of our 3 way experiment
 
 ### ROC curves using embeddings from binary classification for self-supervised learning
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click to see ROC curves!</summary>
   
   <p float="left">
     <img src="/experiments/roc_binary/bottle.jpg" width="260" />
@@ -66,7 +66,7 @@ TODO: add results of our 3 way experiment
 ### Self-supervised binary training results
 
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click to see self-supervised training results!</summary>
   
   **Training accuracy and loss for bottle**
   <p float="left">
@@ -105,7 +105,7 @@ TODO: add results of our 3 way experiment
 
 ### Self-supervised 3-way training results
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click to see self-supervised training results!</summary>
   
   **Training accuracy and loss for pill**
   <p float="left">
@@ -138,7 +138,7 @@ TODO: add results of our 3 way experiment
 
 ### t-SNE visualisation of embeddings 
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click to see t-SNE visualisations!</summary>
   
 <p float="left">
   <img src="experiments/tsne_3way/grid_tsne.jpg" width="500" />
