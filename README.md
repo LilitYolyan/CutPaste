@@ -25,7 +25,7 @@ For binary classification head
 $ python train.py --dataset_path path/to/your/dataset/ --num_class 2
 ```
 For feature extractor any torchvision model can be used.
-For example to use EfficientNet(B4) Do
+For example to use EfficientNet(B4) 
 ```
 $ python train.py --dataset_path path/to/your/dataset/ --encoder efficientnet_b4
 ```
@@ -45,8 +45,8 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 - [X] Self-supervised model 
 - [X] Gaussian Density Estimator
 - [X] EfficientNet Implementation
+- [X] t-SNE visualization of representations
 - [ ] Localization
-- [ ] t-SNE visualization of representations
 
 Any contribution is appreciated!
 
@@ -113,4 +113,8 @@ TODO: Add results of our 3 way experiment
 </p>
 
 
-
+## t-SNE visualisation of embeddings 
+<p float="left">
+  <img src="experiments/tsne_3way/grid_tsne.jpg" width="400" />
+  <img src="experiments/tsne_3way/wood_tsne.jpg" width="400" /> 
+</p>

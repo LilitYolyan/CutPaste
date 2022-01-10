@@ -18,8 +18,6 @@ import argparse
 from glob import glob
 import pathlib
 
-#TODO plot tsne
-
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--path_to_checkpoints',
@@ -212,7 +210,7 @@ if __name__ == '__main__':
 
     for defect in glob(os.path.join(args.data, '*')):
         defect_name = os.path.split(defect)[-1]
-        checkpoint = [i for i in all_checkpoints if defect_name == i.stem.split("-")[-1]]
+        checkpoint = [i for i in all_checkpoints if defect_name == i.parts[-4]]
         if not checkpoint:
             continue
         else:
