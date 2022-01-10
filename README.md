@@ -44,8 +44,9 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 ### TODO
 - [X] Self-supervised model 
 - [X] Gaussian Density Estimator
-- [ ] EfficientNet Implementation
+- [X] EfficientNet Implementation
 - [ ] Localization
+- [ ] t-SNE visualization of representations
 
 Any contribution is appreciated!
 
@@ -62,7 +63,7 @@ To train self-supervised model we used same hyperparameters as was used in paper
 
 
 ## AUC comparison of our code and paper results
-
+TODO: Add results of our 3 way experiment
 | Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  | 
 | ------------- | ------------- | ------------- | 
 | tile  | 84.1 | 95.9 | 

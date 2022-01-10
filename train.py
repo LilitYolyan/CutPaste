@@ -1,7 +1,7 @@
 import torch
 from torch.nn import functional as F
 from torchvision import transforms
-from torch.utils.data import Dataset, DataLoader
+import torch.utils.data
 import pytorch_lightning as pl
 from model import CutPasteNet
 from pytorch_lightning import Trainer
@@ -24,6 +24,7 @@ class CutPaste(pl.LightningModule):
         loader = torch.utils.data.DataLoader(
             dataset=dataset,
             batch_size=self.hparams.batch_size,
+            num_workers=8,
             shuffle=True
         )
         return loader
@@ -43,7 +44,7 @@ class CutPaste(pl.LightningModule):
         return features, logits, embeds
 
     def configure_optimizers(self):
-        optimizer = optim.SGD(self.parameters(), lr=self.hparams.learninig_rate, 
+        optimizer = optim.SGD(self.parameters(), lr=self.hparams.learning_rate, 
                             momentum=self.hparams.momentum, weight_decay=self.hparams.weight_decay)
         scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, self.hparams.num_epochs)
         return [optimizer], [scheduler]
@@ -83,18 +84,20 @@ class CutPaste(pl.LightningModule):
 
 if __name__ == "__main__":
     args = get_args()
+    # change default checkpoint_filename: "weights" to "weights-<defect name>"
+    NAME_CKPT = args.checkpoint_filename +"-"+ Path(args.dataset_path).parent.stem if args.checkpoint_filename == "weights" else args.checkpoint_filename
     logger = TensorBoardLogger(args.log_dir, name=args.log_dir_name)
     checkpoint_dir = (
-    Path(logger.save_dir)
-    / logger.name
-    / f"version_{logger.version}"
-    / "checkpoints"
-    )
+        Path(logger.save_dir)
+        / logger.name
+        / f"version_{logger.version}"
+        / "checkpoints"
+        )
     checkpoint_callback = ModelCheckpoint(
-    monitor = args.monitor_checkpoint,
-    dirpath=str(checkpoint_dir),
-    filename=args.checkpoint_filename,
-    mode = args.monitor_checkpoint_mode)
+        monitor = args.monitor_checkpoint,
+        dirpath=str(checkpoint_dir),
+        filename=NAME_CKPT,
+        mode = args.monitor_checkpoint_mode)
     model = CutPaste(hparams = args)
     trainer = pl.Trainer.from_argparse_args(args, logger=logger, gpus=args.num_gpus, callbacks=[checkpoint_callback], max_epochs=args.num_epochs)
     trainer.fit(model)
