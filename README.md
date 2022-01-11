@@ -65,7 +65,6 @@ To train self-supervised model we used same hyperparameters as was used in paper
 
 ## AUC comparison of our code and paper results
 | Defect Name  | CutPaste binary (ours) | CutPaste binary (paper's)  |  CutPaste 3way (ours) | CutPaste 3way (paper's) |
-<<<<<<< HEAD
 | ------------- | ------------- | ------------- | ------------- | ------------- | 
 | tile  | 84.1 | 95.9 | 78.9 | 93.4 |
 | wood  | 89.5 | 94.9 | 89.2 | 98.6 |
@@ -82,24 +81,6 @@ To train self-supervised model we used same hyperparameters as was used in paper
 | bottle | 98.5 | 99.2 | 75.7 | 98.3 |
 | grid | 99.9 | 99.9 | 73.0 | 99.9 |
 | transistor | 84.4 | 96.4 | 85.5 | 95.5 |
-=======
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| tile  | 84.1 | 95.9 | 64 | 93.4 |
-| wood  | 89.5 | 94.9 | 86.9 | 98.6 |
-| pill | 88.7 | 93.4 | 74.1 | 92.4 |
-| leather | 98.7 | 99.7 | 77.3 | 100.0 |
-| hazelnut | 98.8 | 91.3 | 84.8 | 97.3 |
-| screw | 89.2 | 54.4 | 39.1 |  86.3 |
-| cable | 83.3 | 87.7 | 72.3 | 93.1 |
-| toothbrush | 94.7 | 99.2 | 66.9 |98.3 |
-| capsule | 80.2 | 87.9 | 79.5 | 96.2 |
-| carpet | 57.9 | 67.9 | 23.8 | 93.1 |
-| zipper | 99.5 | 99.4 | 99.5 | 99.4 |
-| metal_nut | 91.5 | 96.8 | 72.0 | 99.3 |
-| bottle | 98.5 | 99.2 | 65.6 | 98.3 |
-| grid | 99.9 | 99.9 | 99.3 | 99.9 |
-| transistor | 84.4 | 96.4 | 84.2 | 95.5 |
->>>>>>> 9bba88750dda31635db2e6b65ca1858aeb3a6c28
 
 
 ## ROC curves using embeddings from binary classification for self-supervised learning
@@ -137,4 +118,4 @@ To train self-supervised model we used same hyperparameters as was used in paper
   <img src="experiments/tsne_3way/grid_tsne.jpg" width="400" />
   <img src="experiments/tsne_3way/wood_tsne.jpg" width="400" /> 
 </p>
-86.9
+
