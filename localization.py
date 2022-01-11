@@ -15,7 +15,7 @@ class Localize:
         return batched_patches
 
     def extract_patch_embeddings(self, image):
-        patches = extract_patches(image)
+        patches = self.extract_patches(image)
         patch_embeddings =[]
         for patch in patches:
             patch_embed = CutPaste(patch)[-1]
