@@ -20,7 +20,8 @@ class CutPaste(pl.LightningModule):
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def train_dataloader(self):
-        dataset = MVTecAD(train_images = self.hparams.dataset_path, image_size = self.hparams.input_size, mode = 'train')
+        dataset = MVTecAD(train_images = self.hparams.dataset_path, image_size = self.hparams.input_size, mode = 'train',
+                          localization = self.hparams.localization)
         loader = torch.utils.data.DataLoader(
             dataset=dataset,
             batch_size=self.hparams.batch_size,
@@ -30,7 +31,8 @@ class CutPaste(pl.LightningModule):
         return loader
     
     def test_dataloader(self):
-        dataset = MVTecAD(train_images = self.hparams.dataset_path, image_size = self.hparams.input_size, mode = 'test')
+        dataset = MVTecAD(train_images = self.hparams.dataset_path, image_size = self.hparams.input_size, mode = 'test',
+                          localization=self.hparams.localization)
         loader = torch.utils.data.DataLoader(
             dataset=dataset,
             batch_size=self.hparams.batch_size,

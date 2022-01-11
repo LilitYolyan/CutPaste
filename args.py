@@ -19,7 +19,8 @@ def get_args():
     parser.add_argument('--log_dir_name', default=r'exp1')
     parser.add_argument('--checkpoint_filename', default=r'weights') 
     parser.add_argument('--monitor_checkpoint', default=r'train_loss') 
-    parser.add_argument('--monitor_checkpoint_mode', default=r'min') 
+    parser.add_argument('--monitor_checkpoint_mode', default=r'min')
+    parser.add_argument('--localization', default = 'False', choices=('True','False'), help = 'If True train on (64,64) cropped patches')
 
   
     args = parser.parse_args()
