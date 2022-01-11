@@ -26,4 +26,3 @@ class Localize:
         patch_matrix = torch.tensor(patch_embeddings).reshape((patch_dim, patch_dim)-1)
         return patch_matrix
             
-

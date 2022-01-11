@@ -6,7 +6,8 @@ from PIL import Image
 from cutpaste import CutPaste
 
 class CutPaste_Dataet(Dataset):
-    def __init__(self,  train_images = None, test_images = None, image_size = (256,256),  mode = 'train', cutpaste_type = '3way'):
+    def __init__(self,  train_images = None, test_images = None, image_size = (256,256),  mode = 'train', cutpaste_type = '3way',
+                 localization = False):
         '''
         Dataset object
         General dataset structure for training self supervised learning and testing with binary classification
@@ -17,14 +18,21 @@ class CutPaste_Dataet(Dataset):
         :param image_size[tuple]: image size for training
         :param mode[str]: options ['train', 'test']
         :cutpaste_type[str]: options ['binary', '3way']
+        :localization[bool]: if True, use patch cropping for localization
         '''
+
+
         self.mode = mode
         self.train_images = train_images
         self.test_images = test_images
         self.cutpaste_transform = CutPaste(type=cutpaste_type)
         if type(image_size) is not tuple: 
             image_size = (image_size, image_size)
+
+        self.crop_size = (64,64) if localization else image_size
+
         self.transform = transforms.Compose([transforms.Resize(image_size),
+                                             transforms.RandomCrop(self.crop_size),
                                              transforms.ToTensor(),
                                              transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                                              ])
