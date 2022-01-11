@@ -47,6 +47,7 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 - [X] EfficientNet Implementation
 - [X] t-SNE visualization of representations
 - [ ] Localization
+- [ ] Grad-CAM visualization 
 
 Any contribution is appreciated!
 
