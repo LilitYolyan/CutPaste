@@ -24,7 +24,7 @@ class CutPasteNet(nn.Module):
         features = self.encoder(x)
         embeds = self.head(features)
         logits = self.out(embeds)
-        return features, logits, embeds
+        return logits, embeds
 
     def freeze(self, layer_name):
         #freeze encoder until layer_name

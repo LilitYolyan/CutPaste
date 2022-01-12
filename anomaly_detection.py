@@ -44,7 +44,7 @@ class AnomalyDetection:
     @staticmethod
     def model(device, weights):
         model = CutPasteNet(pretrained=False)
-        state_dict = torch.load(weights)['state_dict']         ## change state_dict structure
+        state_dict = torch.load(weights)['state_dict']
         state_dict = {i.replace('model.', '') : j  for i, j in state_dict.items()}
         model.load_state_dict(state_dict)
         model.to(device)
@@ -129,8 +129,8 @@ class AnomalyDetection:
         dataloader = DataLoader(dataset, batch_size = self.batch_size)
         with torch.no_grad():
             for imgs, lbls in dataloader:
-                features, logits, embeds = self.cutpaste_model(imgs.to(self.device))
-                del features, logits
+                logits, embeds = self.cutpaste_model(imgs.to(self.device))
+                del logits
                 embeddings.append(embeds.to('cpu'))
                 labels.append(lbls.to('cpu'))
                 torch.cuda.empty_cache()
@@ -156,7 +156,7 @@ class AnomalyDetection:
                 (_, lbls) = torch.meshgrid(torch.arange(0, n), torch.arange(0, len(imgs)), indexing="xy")
                 imgs = torch.concat(imgs)
                 lbls = lbls.to(dtype=torch.int).flatten()
-                (_, _, embeds) = self.cutpaste_model(imgs.to(self.device))
+                ( _, embeds) = self.cutpaste_model(imgs.to(self.device))
                 assert len(embeds) == len(lbls) == len(imgs), IndexError(f"Shape mismatch: len(embeds), len(lbls), (imgs): {len(embeds), len(lbls), len(imgs)}")
                 embeddings.append(embeds.to('cpu'))
                 labels.append(lbls.to('cpu'))
