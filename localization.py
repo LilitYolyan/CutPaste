@@ -10,7 +10,8 @@ from PIL import Image
 import math 
 import numpy as np
 from scipy import signal
-
+import torchvision.transforms as transforms
+import cv2
 
 class Localize:
     def __init__(self, model_weights, kernel_dim = (32,32), stride = 4, batch_size = 128, device = 'cuda'):
@@ -19,7 +20,7 @@ class Localize:
         self.batch_size = batch_size
         self.anomaly = AnomalyDetection(model_weights, batch_size)
         self.device = device
-        self.transform =  transforms.Compose([transforms.Resize(256,256), ### ADD to arguments
+        self.transform =  transforms.Compose([transforms.Resize((256,256)), ### ADD to arguments
                                              transforms.ToTensor(),
                                              transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                                              ])
@@ -63,15 +64,18 @@ class Localize:
 
     def patch_heatmap(self,path_to_trian, test_image_pil):
         GDE_model = self.patch_GDE_fit(path_to_trian)
-
         image = Image.open(test_image_pil)
-        test_image = self.transform(image)
+        test_image = self.transform(image).unsqueeze(0)
         patch_matrix = self.extract_patch_embeddings(test_image)
         w, h, c = patch_matrix.shape
         flat = patch_matrix.reshape(w * h, c)
         score = self.anomaly.GDE_scores(flat, GDE_model)
         score_matrix = score.reshape(1, 1, 57,57) ####### ADD to arguments
         return score_matrix
+
+
+
+
 
 
 class Gaussian_smoothing:
@@ -114,8 +118,30 @@ class Gaussian_smoothing:
         tconv = torch.nn.ConvTranspose2d(1,1, kernel_size=self.kernel_size, stride=self.stride)
         tconv.weight.data = torch.from_numpy(self.gkern()).unsqueeze(0).unsqueeze(0).float()
         tconv.to(self.device)
-        X = X.to(self.device)
-        out = tconv(X)
+        X = torch.from_numpy(X).float().to(self.device)
+        out = tconv(X).detach().cpu().numpy()
         return out
 
+
+def heatmap_on_image(image, hmap):
+    img = cv2.imread(image)
+    img = cv2.resize(img, (256,256), interpolation = cv2.INTER_AREA)
+    hmap = hmap.squeeze(0).squeeze(0)
+    hmap = np.expand_dims(hmap, axis=2)
+    hmap = np.uint8(hmap)
+    heatmap_img = cv2.applyColorMap(hmap, cv2.COLORMAP_JET)
+    fin = cv2.addWeighted(heatmap_img, 0.7, img, 0.3, 0)
+    return fin
+
+
+def save_anomaly_map(image, hmap, save_path):
+    imposed_image = heatmap_on_image(image, hmap)
+    cv2.imwrite(os.path.join(save_path, f'{file_name}.jpg'), image)
+    cv2.imwrite(os.path.join(self.sample_path, f'{file_name}_amap.jpg'), imposed_image)
+
+L = Localize('./weights-bottle.ckpt')
+sp = L.patch_heatmap('./bottle/train/', './bottle/test/broken_large/004.png')
+GS = Gaussian_smoothing()
+up = GS.upsample(sp)
+visualize_heatmap('./bottle/test/broken_large/004.png', up)
 
