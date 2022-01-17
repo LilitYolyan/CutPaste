@@ -14,13 +14,13 @@ import torchvision.transforms as transforms
 import cv2
 
 class Localize:
-    def __init__(self, model_weights, kernel_dim = (32,32), stride = 4, batch_size = 128, device = 'cuda'):
+    def __init__(self, model_weights, kernel_dim = (32,32), stride = 4, batch_size = 128, device = 'cuda', image_size = (256,256)):
         self.kernel_dim = kernel_dim
         self.stride = stride
         self.batch_size = batch_size
         self.anomaly = AnomalyDetection(model_weights, batch_size)
         self.device = device
-        self.transform =  transforms.Compose([transforms.Resize((256,256)), ### ADD to arguments
+        self.transform =  transforms.Compose([transforms.Resize(image_size),
                                              transforms.ToTensor(),
                                              transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                                              ])
@@ -51,7 +51,7 @@ class Localize:
         embeds = []
         for img, _ in tqdm(dataloader):
             patch_matrix = self.extract_patch_embeddings(img)
-            # TODO
+            # TODO: some MvTech classes were fitted into separate models for each location based on paper
             if aligned_obj:
                 pass
             else:
@@ -62,7 +62,7 @@ class Localize:
         GDE_model = self.anomaly.GDE_fit(torch.cat(embeds))
         return GDE_model
 
-    def patch_heatmap(self,path_to_trian, test_image_pil):
+    def patch_scores(self,path_to_trian, test_image_pil):
         GDE_model = self.patch_GDE_fit(path_to_trian)
         image = Image.open(test_image_pil)
         test_image = self.transform(image).unsqueeze(0)
@@ -70,12 +70,8 @@ class Localize:
         w, h, c = patch_matrix.shape
         flat = patch_matrix.reshape(w * h, c)
         score = self.anomaly.GDE_scores(flat, GDE_model)
-        score_matrix = score.reshape(1, 1, 57,57) ####### ADD to arguments
+        score_matrix = score.reshape(1, 1, w,h)
         return score_matrix
-
-
-
-
 
 
 class Gaussian_smoothing:
@@ -140,7 +136,7 @@ def save_anomaly_map(image, hmap, save_path):
     cv2.imwrite(os.path.join(self.sample_path, f'{file_name}_amap.jpg'), imposed_image)
 
 L = Localize('./weights-bottle.ckpt')
-sp = L.patch_heatmap('./bottle/train/', './bottle/test/broken_large/004.png')
+sp = L.patch_scores('./bottle/train/', './bottle/test/broken_large/004.png')
 GS = Gaussian_smoothing()
 up = GS.upsample(sp)
 visualize_heatmap('./bottle/test/broken_large/004.png', up)
