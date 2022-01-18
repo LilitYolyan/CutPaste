@@ -12,6 +12,7 @@ import numpy as np
 from scipy import signal
 import torchvision.transforms as transforms
 import cv2
+import shutil
 
 class Localize:
     def __init__(self, model_weights, kernel_dim = (32,32), stride = 4, batch_size = 128, device = 'cuda', image_size = (256,256)):
@@ -132,12 +133,16 @@ def heatmap_on_image(image, hmap):
 
 def save_anomaly_map(image, hmap, save_path):
     imposed_image = heatmap_on_image(image, hmap)
-    cv2.imwrite(os.path.join(save_path, f'{file_name}.jpg'), image)
-    cv2.imwrite(os.path.join(self.sample_path, f'{file_name}_amap.jpg'), imposed_image)
+    file_name = image.split('/')[-1].split('.')[0]
+    shutil.copy(image, os.path.join(save_path, f'{file_name}.jpg'))
+    cv2.imwrite(os.path.join(save_path, f'{file_name}_amap.jpg'), imposed_image)
+
+
 
 L = Localize('./weights-bottle.ckpt')
 sp = L.patch_scores('./bottle/train/', './bottle/test/broken_large/004.png')
 GS = Gaussian_smoothing()
 up = GS.upsample(sp)
 visualize_heatmap('./bottle/test/broken_large/004.png', up)
+
 

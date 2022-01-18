@@ -42,8 +42,8 @@ class CutPaste(pl.LightningModule):
 
 
     def forward(self, x):
-        features, logits, embeds = self.model(x)
-        return features, logits, embeds
+        logits, embeds = self.model(x)
+        return  logits, embeds
 
     def configure_optimizers(self):
         optimizer = optim.SGD(self.parameters(), lr=self.hparams.learning_rate, 
@@ -61,7 +61,7 @@ class CutPaste(pl.LightningModule):
         x = torch.cat(batch, axis=0)
         y = torch.arange(len(batch))
         y = y.repeat_interleave(len(batch[0])).cuda()
-        features, logits, embeds = self(x)
+        logits, embeds = self(x)
         loss = self.criterion(logits, y)
         predicted = torch.argmax(logits,axis=1)
         accuracy = torch.true_divide(torch.sum(predicted==y), predicted.size(0))
@@ -72,7 +72,7 @@ class CutPaste(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         x, y = batch
-        features, logits, embeds = self(x)
+        logits, embeds = self(x)
         loss = self.criterion(logits, y)
         
 
