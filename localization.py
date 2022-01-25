@@ -79,7 +79,7 @@ class Gaussian_smoothing:
     """
         The class does receptive field upsampling via Gaussian smoothing  which
         essentially applies the transposed convolution with the stride of 4, the same stride 
-        that is used for dense feature extraction,using a single convolution kernel of size 32×32 
+        that is used for dense feature extraction,using a single convolution kernel of size 32x32 
         whose weights are determined by a Gaussian distribution.
         Gaussian kernel generation function is taken from https://github.com/liznerski/fcdd.
     """ 

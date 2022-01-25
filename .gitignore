@@ -5,3 +5,6 @@ tb_logs/
 anomaly_exp/
 __pycache__
 .vscode
+.benchmarks
+.pytest_cache
+
