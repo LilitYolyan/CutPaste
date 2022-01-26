@@ -1,8 +1,10 @@
 import torch
 from torchvision import models
 import torch.nn as nn
+from torchvision.models.feature_extraction import create_feature_extractor
 
-class CutPasteNet(nn.Module):
+class _CutPasteNetBase(nn.Module):
+    # forward outputs: logits
     def __init__(self, encoder = 'resnet18', pretrained = True, dims = [512,512,512,512,512,512,512,512,128], num_class = 3):
         super().__init__()
         self.encoder = getattr(models, encoder)(pretrained = pretrained)
@@ -24,7 +26,7 @@ class CutPasteNet(nn.Module):
         features = self.encoder(x)
         embeds = self.head(features)
         logits = self.out(embeds)
-        return logits, embeds
+        return logits
 
     def freeze(self, layer_name):
         #freeze encoder until layer_name
@@ -36,5 +38,20 @@ class CutPasteNet(nn.Module):
                 param.requires_grad = False
             else:
                 param.requires_grad = True
+                
+    def create_graph_model(self,):
+        return create_feature_extractor(model=self, return_nodes=["head", "out"])
+    
+    
+class CutPasteNet(_CutPasteNetBase):
+    # forward outputs:  (logits, embeds)
+    def __init__(self, encoder='resnet18', pretrained=True, dims=[512, 512, 512, 512, 512, 512, 512, 512, 128], num_class=3):
+        super().__init__(encoder, pretrained, dims, num_class)
+        return
+    
+    def forward(self, x):
+        features = self.encoder(x)
+        embeds = self.head(features)
+        logits = self.out(embeds)
+        return (logits, embeds)
 
-  
