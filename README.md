@@ -53,7 +53,7 @@ $ python anomaly_detection.py --checkpoint path/to/your/weights --data path/to/m
 Any contribution is appreciated!
 
 # Experiment Results
-For more experiment results go to ["experiments.md"](/experiments.md)
+For more experiment results go to ["experiments.md"](experiments/experiments.md)
 
 To train self-supervised model we used same hyperparameters as was used in paper: 
 | Hyperparameter  | Value |
