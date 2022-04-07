@@ -139,10 +139,15 @@ def save_anomaly_map(image, hmap, save_path):
 
 
 
-L = Localize('./weights-bottle.ckpt')
-sp = L.patch_scores('./bottle/train/', './bottle/test/broken_large/004.png')
+# L = Localize('./weights-bottle.ckpt')
+# sp = L.patch_scores('./bottle/train/', './bottle/test/broken_large/004.png')
+# GS = Gaussian_smoothing()
+# up = GS.upsample(sp)
+# visualize_heatmap('./bottle/test/broken_large/004.png', up)
+
+
+L = Localize('/home/lilityolyan/stuff/cutpaste/tb_logs_3way/carpet/version_0/checkpoints/weights.ckpt')
+sp = L.patch_scores('/media/lilityolyan/DATA/damage/mvtec/carpet/train', '/media/lilityolyan/DATA/damage/mvtec/carpet/test/hole/008.png')
 GS = Gaussian_smoothing()
 up = GS.upsample(sp)
-visualize_heatmap('./bottle/test/broken_large/004.png', up)
-
-
+heatmap_on_image('/media/lilityolyan/DATA/damage/mvtec/carpet/train', '/media/lilityolyan/DATA/damage/mvtec/carpet/test/hole/008.png', up)
