@@ -7,16 +7,45 @@ from model import CutPasteNet
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
-from args import get_args
 from dataset import MVTecAD
 from torch import optim
 from pathlib import Path
+import argparse
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pretrained', default='True',
+                        help='bool value to indicate weather to use pretrained weight for encoder')
+    parser.add_argument('--dataset_path', help='path to trainset with category name, eg: "../data/MVTecAD/wood/train')
+    parser.add_argument('--dims', default=[512, 512, 512, 512, 512, 512, 512, 512, 128],
+                        help='list indicating number of hidden units for each layer of projection head')
+    parser.add_argument('--num_class', default=3)
+    parser.add_argument('--encoder', default='resnet18')
+    parser.add_argument('--learning_rate', default=0.03)
+    parser.add_argument('--momentum', default=0.9)
+    parser.add_argument('--weight_decay', default=0.00003)
+    parser.add_argument('--num_epochs', default=300)
+    parser.add_argument('--num_gpus', default=1)
+    parser.add_argument('--batch_size', default=4, type=int)
+    parser.add_argument('--input_size', default=256)
+    parser.add_argument('--log_dir', default=r'tb_logs')
+    parser.add_argument('--log_dir_name', default=r'exp1')
+    parser.add_argument('--checkpoint_filename', default=r'weights')
+    parser.add_argument('--monitor_checkpoint', default=r'train_loss')
+    parser.add_argument('--monitor_checkpoint_mode', default=r'min')
+    parser.add_argument('--localization', default='False', choices=('True', 'False'),
+                        help='If True train on (64,64) cropped patches')
+
+    args = parser.parse_args()
+    return args
+
 
 class CutPaste(pl.LightningModule):
     def __init__(self, hparams):
         super(CutPaste, self).__init__()
         self.save_hyperparameters(hparams)
-        self.model = CutPasteNet(encoder = hparams.encoder, pretrained = hparams.pretrained, dims = hparams.dims, num_class = hparams.num_class)
+        self.model = CutPasteNet(encoder = hparams.encoder, pretrained = hparams.pretrained, dims = hparams.dims, num_class = int(hparams.num_class))
         self.criterion = torch.nn.CrossEntropyLoss()
     
     def train_dataloader(self):
