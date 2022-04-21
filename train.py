@@ -15,7 +15,7 @@ import argparse
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pretrained', default='True',
+    parser.add_argument('--pretrained',  action='store_true',
                         help='bool value to indicate weather to use pretrained weight for encoder')
     parser.add_argument('--dataset_path', help='path to trainset with category name, eg: "../data/MVTecAD/wood/train')
     parser.add_argument('--dims', default=[512, 512, 512, 512, 512, 512, 512, 512, 128],
@@ -34,7 +34,7 @@ def get_args():
     parser.add_argument('--checkpoint_filename', default=r'weights')
     parser.add_argument('--monitor_checkpoint', default=r'train_loss')
     parser.add_argument('--monitor_checkpoint_mode', default=r'min')
-    parser.add_argument('--localization', default='False', choices=('True', 'False'),
+    parser.add_argument('--localization',  action='store_true',
                         help='If True train on (64,64) cropped patches')
 
     args = parser.parse_args()
